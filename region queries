@@ -13,18 +13,24 @@ import numpy as np
 ang = Angle((2),unit='arcsec')
 
 #Specify the coordinates for Vizier to search around.
+#The code below creates a table with two columns labeled
+#with RA and Dec.
 #I used hms and dms, but other units can be used.
 coord = Table()
 coord['_RAJ2000'] = Column(['18h04m20.72s'])
 coord['_DEJ2000'] = Column(['-28d24m31.6s'])
-#print(coord)
-#print(ang)
 
-#This prints the queries.
+#This queries Vizier.
 result = Vizier.query_region(coordinates=coord, radius=ang)
-result[result.keys()[1]].pprint()
 
-#This loops through the queries and prints out the number of results.
+#This loops through the query and prints all the results.
+x = 0
+result = Vizier.query_region(coordinates=coord, radius=ang)
+while x < len(result):
+    result[result.keys()[x]].pprint()
+    x += 1
+
+#This loops through the query and prints out the number of results.
 x = 0
 num = 0
 while x < len(result):
